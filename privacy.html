@@ -13,8 +13,8 @@
 </head>
 <body>
 <h1>Политика конфиденциальности</h1>
-<p class="muted">Assistant Telegram · действует с 17 октября 2026 г., редакция 2 (добавлен Google Календарь) ·
-<a href="#en">English</a></p>
+<p class="muted">Assistant Telegram · действует с 18 октября 2026 г., редакция 3 (анализ входящих писем, сводки
+почты, полный текст письма по запросу) · <a href="#en">English</a></p>
 
 <h2>1. Кто и зачем</h2>
 <p>Assistant Telegram — личный помощник одного человека (владельца), работающий как бот в Telegram. Сервис
@@ -26,6 +26,10 @@
 <p><b>Gmail</b> (разрешение <code>https://mail.google.com/</code>, протоколы IMAP и SMTP). Помощник:</p>
 <ul>
   <li>читает письма во «Входящих», не удаляя их и не помечая прочитанными;</li>
+  <li>анализирует входящие письма, чтобы сообщить владельцу, кто написал, что сообщает, нужно ли его решение и к
+    какому сроку. Очевидную рекламу и служебные оповещения Google о безопасности и о проекте Google Cloud помощник
+    разбирает по правилам на своём сервере, остальные письма — с помощью языковой модели (раздел 4). О срочном он
+    сообщает сразу, остальное значимое включает в сводку дважды в день, рекламу пропускает;</li>
   <li>отправляет письма по поручению владельца;</li>
   <li>просматривает заголовки писем в «Отправленных», чтобы убедиться, что письмо ушло.</li>
 </ul>
@@ -44,7 +48,9 @@
 <h2>3. Где и сколько хранятся данные</h2>
 <ul>
   <li>Письма, отправленные и полученные помощником (адреса, тема, текст), и связанные с ними задачи хранятся
-    в базе данных на арендованном сервере Timeweb Cloud в Нидерландах, пока владелец пользуется помощником.</li>
+    в базе данных на арендованном сервере Timeweb Cloud в Нидерландах, пока владелец пользуется помощником.
+    Там же вместе с письмом хранится результат его анализа: кто написал, краткая суть, что требуется, срок и
+    оценка срочности.</li>
   <li>События хранятся в календаре «Ассистент» в Google, пока их не удалят. В базе помощника для связи с задачами
     хранятся идентификатор, название и время каждого созданного им события.</li>
   <li>Сообщения владельца помощнику и ответы помощника в Telegram, в том числе со сведениями о письмах и событиях,
@@ -60,13 +66,22 @@
 <h2>4. Кому передаются данные</h2>
 <ul>
   <li><b>Timeweb Cloud</b> — хостинг-провайдер, на сервере которого работает помощник и хранится база.</li>
-  <li><b>Telegram</b> — владелец получает уведомления о новых письмах (отправитель, тема, короткий фрагмент текста)
-    и видит события календаря «Ассистент» (название, время).</li>
-  <li><b>OpenAI (ChatGPT)</b> — языковая модель разбирает сообщения владельца, в том числе просьбы о событиях
-    (название, дату и время в его словах), а по задачам владельца — текст отдельных писем. Запросы выполняются через
-    вход владельца в его аккаунт ChatGPT (Sign in with ChatGPT) и обрабатываются OpenAI по условиям и политике
-    конфиденциальности OpenAI, действующим для этого аккаунта. Сведения, которые помощник получает из Google
-    Календаря, языковой модели не передаются.</li>
+  <li><b>Telegram</b> — владелец получает срочные уведомления о письмах (кто написал, что произошло, что требуется,
+    срок) и сводки почты дважды в день (то же по каждой переписке кратко). Полный текст конкретного письма
+    отправляется только по команде владельца. Также владелец видит события календаря «Ассистент» (название, время).</li>
+  <li><b>OpenAI (ChatGPT)</b> — запросы к языковой модели идут с сервера помощника через вход владельца в его аккаунт
+    ChatGPT (Sign in with ChatGPT) и обрабатываются OpenAI по условиям и политике конфиденциальности OpenAI,
+    действующим для этого аккаунта. Модель получает:
+    <ul>
+      <li>сообщения владельца, в том числе просьбы о событиях (название, дату и время в его словах);</li>
+      <li>для анализа входящего письма: имя и адрес отправителя, тему, дату, текст письма без цитаты прошлой
+        переписки — не более 6000 символов (если письмо длиннее, модель видит отметку об обрезке), сведения не более
+        чем о 5 предыдущих письмах той же переписки (отправитель, дата, краткая суть или до 500 символов текста)
+        и цель связанной задачи. За одну проверку почты анализируется не больше 10 переписок;</li>
+      <li>по задачам с лабораториями — текст их ответов без цитаты, не более 8000 символов.</li>
+    </ul>
+    Модели не передаются письма, отсеянные правилами как реклама, служебные оповещения Google о безопасности
+    и о проекте Google Cloud, а также сведения из Google Календаря.</li>
 </ul>
 <p>Помощник не продаёт данные, не использует их для рекламы и не передаёт их никому, кроме перечисленных выше.</p>
 
@@ -98,7 +113,8 @@
 <hr>
 
 <h1 id="en">Privacy Policy</h1>
-<p class="muted">Assistant Telegram · effective October 17, 2026, revision 2 (Google Calendar added)</p>
+<p class="muted">Assistant Telegram · effective October 18, 2026, revision 3 (incoming email analysis, email
+digests, full email text on request)</p>
 
 <h2>1. Who and why</h2>
 <p>Assistant Telegram is a personal assistant used by a single person (the owner) and runs as a Telegram bot. The
@@ -111,6 +127,10 @@ address.</p>
 <p><b>Gmail</b> (scope <code>https://mail.google.com/</code>, via IMAP and SMTP). The assistant:</p>
 <ul>
   <li>reads messages in the Inbox without deleting them or marking them as read;</li>
+  <li>analyzes incoming email to tell the owner who wrote, what they say, whether the owner's decision is needed and by
+    when. Obvious advertising and Google's service alerts about security and the Google Cloud project are handled by
+    rules on the assistant's own server; other emails are analyzed with a language model (section 4). Urgent matters
+    are reported right away, other meaningful emails go into a digest twice a day, advertising is skipped;</li>
   <li>sends emails on the owner's instructions;</li>
   <li>reads message headers in the Sent folder to confirm that an email was sent.</li>
 </ul>
@@ -130,7 +150,8 @@ needed, this policy will be updated beforehand.</p>
 <h2>3. Where data is stored and for how long</h2>
 <ul>
   <li>Emails sent and received by the assistant (addresses, subject, body) and related tasks are stored in a database
-    on a rented Timeweb Cloud server in the Netherlands for as long as the owner uses the assistant.</li>
+    on a rented Timeweb Cloud server in the Netherlands for as long as the owner uses the assistant. The result of
+    analyzing each email (who wrote, a short gist, what is needed, deadline and urgency) is stored with it.</li>
   <li>Events are stored in the "Ассистент" calendar in Google until they are deleted. To link events to tasks, the
     assistant's database stores the ID, title and time of each event it creates.</li>
   <li>The owner's messages to the assistant and the assistant's replies in Telegram, including those with information
@@ -146,13 +167,22 @@ needed, this policy will be updated beforehand.</p>
 <h2>4. Who data is shared with</h2>
 <ul>
   <li><b>Timeweb Cloud</b>: the hosting provider whose server runs the assistant and stores the database.</li>
-  <li><b>Telegram</b>: the owner receives notifications about new emails (sender, subject, short excerpt) and sees
-    events of the "Ассистент" calendar (title, time).</li>
-  <li><b>OpenAI (ChatGPT)</b>: a language model analyzes the owner's messages, including requests about events (title,
-    date and time in the owner's words), and, for the owner's tasks, the text of individual emails. Requests are made
-    through the owner's sign-in to their ChatGPT account (Sign in with ChatGPT) and are processed by OpenAI under the
-    OpenAI terms and privacy policy that apply to that account. Information the assistant receives from Google Calendar
-    is not sent to the language model.</li>
+  <li><b>Telegram</b>: the owner receives urgent email notifications (who wrote, what happened, what is needed,
+    deadline) and email digests twice a day (the same, briefly, for each conversation). The full text of a specific
+    email is sent only on the owner's command. The owner also sees events of the "Ассистент" calendar (title, time).</li>
+  <li><b>OpenAI (ChatGPT)</b>: requests to the language model are made from the assistant's server through the owner's
+    sign-in to their ChatGPT account (Sign in with ChatGPT) and are processed by OpenAI under the OpenAI terms and
+    privacy policy that apply to that account. The model receives:
+    <ul>
+      <li>the owner's messages, including requests about events (title, date and time in the owner's words);</li>
+      <li>to analyze an incoming email: the sender's name and address, subject, date, the email text without quoted
+        earlier correspondence — up to 6,000 characters (if longer, the model sees a truncation mark), information about
+        up to 5 earlier emails in the same conversation (sender, date, short gist or up to 500 characters of text) and
+        the goal of the related task. At most 10 conversations are analyzed per mail check;</li>
+      <li>for laboratory tasks, the text of the laboratories' replies without quotes, up to 8,000 characters.</li>
+    </ul>
+    Emails filtered out by rules as advertising, Google's service alerts about security and the Google Cloud project,
+    and information from Google Calendar are not sent to the model.</li>
 </ul>
 <p>The assistant does not sell data, does not use it for advertising and does not share it with anyone other than
 those listed above.</p>
