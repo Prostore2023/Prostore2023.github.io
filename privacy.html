@@ -13,7 +13,8 @@
 </head>
 <body>
 <h1>Политика конфиденциальности</h1>
-<p class="muted">Assistant Telegram · действует с 17 октября 2026 г. · <a href="#en">English</a></p>
+<p class="muted">Assistant Telegram · действует с 17 октября 2026 г., редакция 2 (добавлен Google Календарь) ·
+<a href="#en">English</a></p>
 
 <h2>1. Кто и зачем</h2>
 <p>Assistant Telegram — личный помощник одного человека (владельца), работающий как бот в Telegram. Сервис
@@ -21,21 +22,33 @@
 полученными через API Google.</p>
 
 <h2>2. Какие данные Google используются</h2>
-<p>Помощник подключён только к отдельному Google-аккаунту, созданному для него. Он получает доступ к Gmail этого
-аккаунта (разрешение <code>https://mail.google.com/</code>, протоколы IMAP и SMTP) и к адресу этого аккаунта.
-С этим доступом помощник:</p>
+<p>Помощник подключён только к отдельному Google-аккаунту, созданному для него, и получает адрес этого аккаунта.</p>
+<p><b>Gmail</b> (разрешение <code>https://mail.google.com/</code>, протоколы IMAP и SMTP). Помощник:</p>
 <ul>
   <li>читает письма во «Входящих», не удаляя их и не помечая прочитанными;</li>
   <li>отправляет письма по поручению владельца;</li>
   <li>просматривает заголовки писем в «Отправленных», чтобы убедиться, что письмо ушло.</li>
 </ul>
-<p>Помощник не удаляет письма и не работает с другими сервисами Google. Если в будущем подключится календарь,
-Диск или Таблицы, эта политика будет обновлена заранее.</p>
+<p><b>Google Календарь</b> (разрешение <code>https://www.googleapis.com/auth/calendar.app.created</code>). Помощник
+создаёт в своём аккаунте отдельный календарь «Ассистент» и работает только с ним:</p>
+<ul>
+  <li>создаёт события по просьбе владельца — командой, сообщением или кнопкой в Telegram;</li>
+  <li>показывает владельцу события этого календаря (название и время);</li>
+  <li>переносит и удаляет только созданные им события и только после подтверждения владельца кнопкой.</li>
+</ul>
+<p>К другим календарям доступа у помощника нет. Участников он в события не добавляет и приглашения не рассылает.
+Владелец может сам открыть календарь «Ассистент» своему личному Google-аккаунту в настройках Google Календаря.</p>
+<p>Помощник не удаляет письма и не работает с другими сервисами Google, например с Диском и Таблицами. Если они
+понадобятся, эта политика будет обновлена заранее.</p>
 
 <h2>3. Где и сколько хранятся данные</h2>
 <ul>
   <li>Письма, отправленные и полученные помощником (адреса, тема, текст), и связанные с ними задачи хранятся
     в базе данных на арендованном сервере Timeweb Cloud в Нидерландах, пока владелец пользуется помощником.</li>
+  <li>События хранятся в календаре «Ассистент» в Google, пока их не удалят. В базе помощника для связи с задачами
+    хранятся идентификатор, название и время каждого созданного им события.</li>
+  <li>Сообщения владельца помощнику и ответы помощника в Telegram, в том числе со сведениями о письмах и событиях,
+    хранятся в той же базе, пока владелец пользуется помощником.</li>
   <li>Резервные копии базы на сервере: ежедневные копии автоматически удаляются через 7 дней; разовые копии,
     сделанные перед обновлениями программы, хранятся до удаления владельцем вручную.</li>
   <li>Копии базы, скачанные на личный компьютер владельца: хранятся последние 30, более старые удаляются
@@ -47,10 +60,13 @@
 <h2>4. Кому передаются данные</h2>
 <ul>
   <li><b>Timeweb Cloud</b> — хостинг-провайдер, на сервере которого работает помощник и хранится база.</li>
-  <li><b>Telegram</b> — владелец получает уведомления о новых письмах: отправитель, тема, короткий фрагмент текста.</li>
-  <li><b>OpenAI (ChatGPT)</b> — по задачам владельца текст отдельных писем передаётся языковой модели для разбора.
-    Запросы выполняются через вход владельца в его аккаунт ChatGPT (Sign in with ChatGPT) и обрабатываются OpenAI
-    по условиям и политике конфиденциальности OpenAI, действующим для этого аккаунта.</li>
+  <li><b>Telegram</b> — владелец получает уведомления о новых письмах (отправитель, тема, короткий фрагмент текста)
+    и видит события календаря «Ассистент» (название, время).</li>
+  <li><b>OpenAI (ChatGPT)</b> — языковая модель разбирает сообщения владельца, в том числе просьбы о событиях
+    (название, дату и время в его словах), а по задачам владельца — текст отдельных писем. Запросы выполняются через
+    вход владельца в его аккаунт ChatGPT (Sign in with ChatGPT) и обрабатываются OpenAI по условиям и политике
+    конфиденциальности OpenAI, действующим для этого аккаунта. Сведения, которые помощник получает из Google
+    Календаря, языковой модели не передаются.</li>
 </ul>
 <p>Помощник не продаёт данные, не использует их для рекламы и не передаёт их никому, кроме перечисленных выше.</p>
 
@@ -63,7 +79,14 @@
 <ul>
   <li>Доступ к Google можно отозвать в любой момент:
     <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> → «Assistant Telegram».
-    После этого помощник больше не может читать и отправлять письма.</li>
+    Доступ к почте и календарю выдан одним разрешением, поэтому после отзыва помощник не может ни читать и
+    отправлять письма, ни работать с календарём.</li>
+  <li>Только календарь владелец может отключить в настройках помощника — почта при этом продолжит работать.</li>
+  <li>События удаляются командой помощника (с подтверждением) или вручную в Google Календаре. Календарь «Ассистент»
+    целиком можно удалить в настройках Google Календаря аккаунта помощника. Ни отзыв доступа, ни отключение
+    календаря события сами не удаляют.</li>
+  <li>Сведения о событиях в базе помощника и в её резервных копиях автоматически не удаляются: они хранятся
+    по правилам раздела 3.</li>
   <li>Если вы переписывались с помощником и хотите удалить свои письма, напишите на адрес ниже. Владелец удалит их
     из базы помощника; в резервных копиях они останутся до удаления этих копий в сроки из раздела 3.</li>
 </ul>
@@ -75,7 +98,7 @@
 <hr>
 
 <h1 id="en">Privacy Policy</h1>
-<p class="muted">Assistant Telegram · effective October 17, 2026</p>
+<p class="muted">Assistant Telegram · effective October 17, 2026, revision 2 (Google Calendar added)</p>
 
 <h2>1. Who and why</h2>
 <p>Assistant Telegram is a personal assistant used by a single person (the owner) and runs as a Telegram bot. The
@@ -83,21 +106,35 @@ service is not offered to anyone else. This policy describes how the assistant h
 through Google APIs.</p>
 
 <h2>2. Google data used</h2>
-<p>The assistant is connected only to a dedicated Google Account created for it. It accesses that account's Gmail
-(scope <code>https://mail.google.com/</code>, via IMAP and SMTP) and the account's email address. With this access the
-assistant:</p>
+<p>The assistant is connected only to a dedicated Google Account created for it and receives that account's email
+address.</p>
+<p><b>Gmail</b> (scope <code>https://mail.google.com/</code>, via IMAP and SMTP). The assistant:</p>
 <ul>
   <li>reads messages in the Inbox without deleting them or marking them as read;</li>
   <li>sends emails on the owner's instructions;</li>
   <li>reads message headers in the Sent folder to confirm that an email was sent.</li>
 </ul>
-<p>The assistant does not delete emails and does not access other Google services. If Calendar, Drive or Sheets are
-connected in the future, this policy will be updated beforehand.</p>
+<p><b>Google Calendar</b> (scope <code>https://www.googleapis.com/auth/calendar.app.created</code>). The assistant
+creates a separate calendar named "Ассистент" (Assistant) in its own account and works only with it:</p>
+<ul>
+  <li>creates events at the owner's request, made by a command, a message or a button in Telegram;</li>
+  <li>shows the owner the events in this calendar (title and time);</li>
+  <li>moves or deletes only events it has created, and only after the owner confirms with a button.</li>
+</ul>
+<p>The assistant has no access to other calendars. It does not add attendees to events and does not send
+invitations. The owner may share the "Ассистент" calendar with their personal Google Account in Google Calendar
+settings.</p>
+<p>The assistant does not delete emails and does not access other Google services such as Drive or Sheets. If they are
+needed, this policy will be updated beforehand.</p>
 
 <h2>3. Where data is stored and for how long</h2>
 <ul>
   <li>Emails sent and received by the assistant (addresses, subject, body) and related tasks are stored in a database
     on a rented Timeweb Cloud server in the Netherlands for as long as the owner uses the assistant.</li>
+  <li>Events are stored in the "Ассистент" calendar in Google until they are deleted. To link events to tasks, the
+    assistant's database stores the ID, title and time of each event it creates.</li>
+  <li>The owner's messages to the assistant and the assistant's replies in Telegram, including those with information
+    about emails and events, are stored in the same database for as long as the owner uses the assistant.</li>
   <li>Database backups on the server: daily backups are deleted automatically after 7 days; one-off backups made before
     software updates are kept until the owner deletes them manually.</li>
   <li>Database copies downloaded to the owner's personal computer: the latest 30 are kept, older ones are deleted
@@ -109,10 +146,13 @@ connected in the future, this policy will be updated beforehand.</p>
 <h2>4. Who data is shared with</h2>
 <ul>
   <li><b>Timeweb Cloud</b>: the hosting provider whose server runs the assistant and stores the database.</li>
-  <li><b>Telegram</b>: the owner receives notifications about new emails (sender, subject, short excerpt).</li>
-  <li><b>OpenAI (ChatGPT)</b>: for the owner's tasks, the text of individual emails is sent to a language model for
-    analysis. Requests are made through the owner's sign-in to their ChatGPT account (Sign in with ChatGPT) and are
-    processed by OpenAI under the OpenAI terms and privacy policy that apply to that account.</li>
+  <li><b>Telegram</b>: the owner receives notifications about new emails (sender, subject, short excerpt) and sees
+    events of the "Ассистент" calendar (title, time).</li>
+  <li><b>OpenAI (ChatGPT)</b>: a language model analyzes the owner's messages, including requests about events (title,
+    date and time in the owner's words), and, for the owner's tasks, the text of individual emails. Requests are made
+    through the owner's sign-in to their ChatGPT account (Sign in with ChatGPT) and are processed by OpenAI under the
+    OpenAI terms and privacy policy that apply to that account. Information the assistant receives from Google Calendar
+    is not sent to the language model.</li>
 </ul>
 <p>The assistant does not sell data, does not use it for advertising and does not share it with anyone other than
 those listed above.</p>
@@ -126,7 +166,14 @@ including the Limited Use requirements.</p>
 <ul>
   <li>Google access can be revoked at any time at
     <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> → "Assistant Telegram".
-    After that the assistant can no longer read or send email.</li>
+    Email and calendar access are granted by a single authorization, so after revoking it the assistant can neither
+    read or send email nor work with the calendar.</li>
+  <li>The owner can turn off the calendar alone in the assistant's settings; email keeps working.</li>
+  <li>Events are deleted with an assistant command (after confirmation) or manually in Google Calendar. The whole
+    "Ассистент" calendar can be deleted in the Google Calendar settings of the assistant's account. Neither revoking
+    access nor turning off the calendar deletes events by itself.</li>
+  <li>Information about events in the assistant's database and its backups is not deleted automatically; it is kept
+    under the rules in section 3.</li>
   <li>If you have corresponded with the assistant and want your emails deleted, write to the address below. The owner
     will delete them from the assistant's database; backups will keep them until those backups are deleted on the
     schedule in section 3.</li>
