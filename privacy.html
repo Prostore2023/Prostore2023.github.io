@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Assistant Telegram</title>
+<style>
+  body { font: 17px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; color: #1f2328; background: #fff; }
+  h1 { font-size: 28px; margin-bottom: 4px; } h2 { font-size: 20px; margin-top: 32px; }
+  .muted { color: #59636e; } hr { border: 0; border-top: 1px solid #d1d9e0; margin: 40px 0; }
+  code { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<h1>Политика конфиденциальности</h1>
+<p class="muted">Assistant Telegram · действует с 17 октября 2026 г. · <a href="#en">English</a></p>
+
+<h2>1. Кто и зачем</h2>
+<p>Assistant Telegram — личный помощник одного человека (владельца), работающий как бот в Telegram. Сервис
+не предлагается другим людям. Эта политика описывает, как помощник обращается с данными, в том числе с данными,
+полученными через API Google.</p>
+
+<h2>2. Какие данные Google используются</h2>
+<p>Помощник подключён только к отдельному Google-аккаунту, созданному для него. Он получает доступ к Gmail этого
+аккаунта (разрешение <code>https://mail.google.com/</code>, протоколы IMAP и SMTP) и к адресу этого аккаунта.
+С этим доступом помощник:</p>
+<ul>
+  <li>читает письма во «Входящих», не удаляя их и не помечая прочитанными;</li>
+  <li>отправляет письма по поручению владельца;</li>
+  <li>просматривает заголовки писем в «Отправленных», чтобы убедиться, что письмо ушло.</li>
+</ul>
+<p>Помощник не удаляет письма и не работает с другими сервисами Google. Если в будущем подключится календарь,
+Диск или Таблицы, эта политика будет обновлена заранее.</p>
+
+<h2>3. Где и сколько хранятся данные</h2>
+<ul>
+  <li>Письма, отправленные и полученные помощником (адреса, тема, текст), и связанные с ними задачи хранятся
+    в базе данных на арендованном сервере Timeweb Cloud в Нидерландах, пока владелец пользуется помощником.</li>
+  <li>Резервные копии базы на сервере: ежедневные копии автоматически удаляются через 7 дней; разовые копии,
+    сделанные перед обновлениями программы, хранятся до удаления владельцем вручную.</li>
+  <li>Копии базы, скачанные на личный компьютер владельца: хранятся последние 30, более старые удаляются
+    автоматически.</li>
+  <li>Ключ доступа к Google хранится на сервере в файле, доступном служебной учётной записи помощника и
+    администратору сервера. Вход на сервер — только по SSH-ключу владельца. Соединения с Google защищены TLS.</li>
+</ul>
+
+<h2>4. Кому передаются данные</h2>
+<ul>
+  <li><b>Timeweb Cloud</b> — хостинг-провайдер, на сервере которого работает помощник и хранится база.</li>
+  <li><b>Telegram</b> — владелец получает уведомления о новых письмах: отправитель, тема, короткий фрагмент текста.</li>
+  <li><b>OpenAI (ChatGPT)</b> — по задачам владельца текст отдельных писем передаётся языковой модели для разбора.
+    Запросы выполняются через вход владельца в его аккаунт ChatGPT (Sign in with ChatGPT) и обрабатываются OpenAI
+    по условиям и политике конфиденциальности OpenAI, действующим для этого аккаунта.</li>
+</ul>
+<p>Помощник не продаёт данные, не использует их для рекламы и не передаёт их никому, кроме перечисленных выше.</p>
+
+<h2>5. Ограниченное использование (Limited Use)</h2>
+<p>Использование и передача помощником информации, полученной через API Google, соответствуют
+<a href="https://developers.google.com/terms/api-services-user-data-policy">Политике использования пользовательских
+данных сервисов Google API</a>, включая требования об ограниченном использовании (Limited Use).</p>
+
+<h2>6. Отзыв доступа и удаление</h2>
+<ul>
+  <li>Доступ к Google можно отозвать в любой момент:
+    <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> → «Assistant Telegram».
+    После этого помощник больше не может читать и отправлять письма.</li>
+  <li>Если вы переписывались с помощником и хотите удалить свои письма, напишите на адрес ниже. Владелец удалит их
+    из базы помощника; в резервных копиях они останутся до удаления этих копий в сроки из раздела 3.</li>
+</ul>
+
+<h2>7. Контакт и изменения</h2>
+<p>Вопросы и запросы: <a href="mailto:sorokin.assistent@gmail.com">sorokin.assistent@gmail.com</a>.
+Дата в начале страницы показывает, когда политика менялась в последний раз.</p>
+
+<hr>
+
+<h1 id="en">Privacy Policy</h1>
+<p class="muted">Assistant Telegram · effective October 17, 2026</p>
+
+<h2>1. Who and why</h2>
+<p>Assistant Telegram is a personal assistant used by a single person (the owner) and runs as a Telegram bot. The
+service is not offered to anyone else. This policy describes how the assistant handles data, including data obtained
+through Google APIs.</p>
+
+<h2>2. Google data used</h2>
+<p>The assistant is connected only to a dedicated Google Account created for it. It accesses that account's Gmail
+(scope <code>https://mail.google.com/</code>, via IMAP and SMTP) and the account's email address. With this access the
+assistant:</p>
+<ul>
+  <li>reads messages in the Inbox without deleting them or marking them as read;</li>
+  <li>sends emails on the owner's instructions;</li>
+  <li>reads message headers in the Sent folder to confirm that an email was sent.</li>
+</ul>
+<p>The assistant does not delete emails and does not access other Google services. If Calendar, Drive or Sheets are
+connected in the future, this policy will be updated beforehand.</p>
+
+<h2>3. Where data is stored and for how long</h2>
+<ul>
+  <li>Emails sent and received by the assistant (addresses, subject, body) and related tasks are stored in a database
+    on a rented Timeweb Cloud server in the Netherlands for as long as the owner uses the assistant.</li>
+  <li>Database backups on the server: daily backups are deleted automatically after 7 days; one-off backups made before
+    software updates are kept until the owner deletes them manually.</li>
+  <li>Database copies downloaded to the owner's personal computer: the latest 30 are kept, older ones are deleted
+    automatically.</li>
+  <li>The Google access token is stored on the server in a file accessible to the assistant's service account and the
+    server administrator. Server login requires the owner's SSH key. Connections to Google use TLS.</li>
+</ul>
+
+<h2>4. Who data is shared with</h2>
+<ul>
+  <li><b>Timeweb Cloud</b>: the hosting provider whose server runs the assistant and stores the database.</li>
+  <li><b>Telegram</b>: the owner receives notifications about new emails (sender, subject, short excerpt).</li>
+  <li><b>OpenAI (ChatGPT)</b>: for the owner's tasks, the text of individual emails is sent to a language model for
+    analysis. Requests are made through the owner's sign-in to their ChatGPT account (Sign in with ChatGPT) and are
+    processed by OpenAI under the OpenAI terms and privacy policy that apply to that account.</li>
+</ul>
+<p>The assistant does not sell data, does not use it for advertising and does not share it with anyone other than
+those listed above.</p>
+
+<h2>5. Limited Use</h2>
+<p>Assistant Telegram's use and transfer of information received from Google APIs will adhere to the
+<a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>,
+including the Limited Use requirements.</p>
+
+<h2>6. Revoking access and deletion</h2>
+<ul>
+  <li>Google access can be revoked at any time at
+    <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> → "Assistant Telegram".
+    After that the assistant can no longer read or send email.</li>
+  <li>If you have corresponded with the assistant and want your emails deleted, write to the address below. The owner
+    will delete them from the assistant's database; backups will keep them until those backups are deleted on the
+    schedule in section 3.</li>
+</ul>
+
+<h2>7. Contact and changes</h2>
+<p>Questions and requests: <a href="mailto:sorokin.assistent@gmail.com">sorokin.assistent@gmail.com</a>.
+The date at the top of this page shows when the policy was last changed.</p>
+</body>
+</html>
