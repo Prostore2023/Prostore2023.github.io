@@ -13,8 +13,9 @@
 </head>
 <body>
 <h1>Политика конфиденциальности</h1>
-<p class="muted">Assistant Telegram · действует с 18 октября 2026 г., редакция 3 (анализ входящих писем, сводки
-почты, полный текст письма по запросу) · <a href="#en">English</a></p>
+<p class="muted">Assistant Telegram · действует с 22 октября 2026 г., редакция 5 (файлы владельца и вложения
+писем, события календаря и заметки в разговоре с языковой моделью, технические журналы) ·
+<a href="#en">English</a></p>
 
 <h2>1. Кто и зачем</h2>
 <p>Assistant Telegram — личный помощник одного человека (владельца), работающий как бот в Telegram. Сервис
@@ -30,7 +31,10 @@
     какому сроку. Очевидную рекламу и служебные оповещения Google о безопасности и о проекте Google Cloud помощник
     разбирает по правилам на своём сервере, остальные письма — с помощью языковой модели (раздел 4). О срочном он
     сообщает сразу, остальное значимое включает в сводку дважды в день, рекламу пропускает;</li>
-  <li>отправляет письма по поручению владельца;</li>
+  <li>отправляет письма по поручению владельца, в том числе с вложениями — файлами, которые владелец прислал
+    помощнику, или вложениями из переписки по его задачам (файлы уходят без изменений);</li>
+  <li>сохраняет вложения входящих писем, пришедших в переписке по задачам владельца, и извлекает из них текст на
+    своём сервере;</li>
   <li>просматривает заголовки писем в «Отправленных», чтобы убедиться, что письмо ушло.</li>
 </ul>
 <p><b>Google Календарь</b> (разрешение <code>https://www.googleapis.com/auth/calendar.app.created</code>). Помощник
@@ -38,7 +42,10 @@
 <ul>
   <li>создаёт события по просьбе владельца — командой, сообщением или кнопкой в Telegram;</li>
   <li>показывает владельцу события этого календаря (название и время);</li>
-  <li>переносит и удаляет только созданные им события и только после подтверждения владельца кнопкой.</li>
+  <li>по просьбе владельца находит события этого календаря и проверяет пересечения по времени;</li>
+  <li>переносит и удаляет только события, созданные им самим, и только по прямой просьбе владельца — сообщением
+    или кнопкой. Новое время переноса должно быть названо владельцем. Если неясно, о каком событии идёт речь, или
+    неясны дата или время, помощник ничего не меняет и задаёт уточняющий вопрос.</li>
 </ul>
 <p>К другим календарям доступа у помощника нет. Участников он в события не добавляет и приглашения не рассылает.
 Владелец может сам открыть календарь «Ассистент» своему личному Google-аккаунту в настройках Google Календаря.</p>
@@ -55,10 +62,34 @@
     хранятся идентификатор, название и время каждого созданного им события.</li>
   <li>Сообщения владельца помощнику и ответы помощника в Telegram, в том числе со сведениями о письмах и событиях,
     хранятся в той же базе, пока владелец пользуется помощником.</li>
+  <li>Файлы, которые владелец присылает помощнику в Telegram (PDF, DOCX, XLSX, изображения), и вложения входящих писем
+    по его задачам хранятся на том же сервере без изменений, вместе с извлечённым из них текстом, пока владелец
+    пользуется помощником. Текст извлекается на сервере, без сторонних сервисов (в том числе распознавание сканов и
+    фотографий).</li>
+  <li>Голосовые сообщения владельца распознаются на том же сервере программой распознавания речи Whisper,
+    которая работает на самом сервере; аудио сторонним сервисам, в том числе OpenAI, не передаётся. Аудиофайл
+    скачивается из Telegram во временную папку и удаляется сразу после распознавания. Расшифровка хранится
+    как обычное сообщение владельца — в базе помощника и в её резервных копиях по правилам этого раздела — и
+    обрабатывается так же, как текстовое сообщение, в том числе языковой моделью (раздел 4). Само голосовое
+    сообщение остаётся в чате Telegram.</li>
+  <li>Заметки и сведения, которые владелец просит запомнить, хранятся в виде файлов в его хранилище Obsidian:
+    на том же сервере — рабочая копия и закрытый git-репозиторий с историей всех изменений, на личном компьютере
+    владельца — полная копия с той же историей. Копии синхронизируются напрямую по SSH, без сторонних сервисов,
+    примерно раз в 5 минут, пока компьютер включён; при выключенном компьютере изменения ждут на сервере.
+    Ежедневные резервные копии базы заметок не содержат. Автоматически заметки не удаляются.</li>
   <li>Резервные копии базы на сервере: ежедневные копии автоматически удаляются через 7 дней; разовые копии,
     сделанные перед обновлениями программы, хранятся до удаления владельцем вручную.</li>
   <li>Копии базы, скачанные на личный компьютер владельца: хранятся последние 30, более старые удаляются
     автоматически.</li>
+  <li>Технические журналы работы помощника хранятся на том же сервере: название операции, технический
+    идентификатор, результат, длительность и тип ошибки — без текстов писем, заметок и сообщений и без сведений
+    о событиях календаря. При отдельных внутренних сбоях в журнал может попасть имя файла или служебный текст
+    ошибки. Журналы хранятся в системном журнале сервера — без фиксированного срока, старые записи удаляются,
+    когда он достигает предельного размера, — в его копии, которая хранится около пяти недель, и в файле
+    журнала помощника (последние 8 МБ записей). Записи, сделанные 21 и 22 октября 2026 г.,
+    могут содержать начало ответов инструментов — до 200 символов текста писем, заметок или сведений о
+    событиях; они хранятся в те же сроки, если владелец не удалит их раньше. Несколько таких записей есть
+    и в разовой полной копии сервера от 21 октября 2026 г.; она хранится до удаления владельцем.</li>
   <li>Ключ доступа к Google хранится на сервере в файле, доступном служебной учётной записи помощника и
     администратору сервера. Вход на сервер — только по SSH-ключу владельца. Соединения с Google защищены TLS.</li>
 </ul>
@@ -74,16 +105,37 @@
     действующим для этого аккаунта. Модель получает:
     <ul>
       <li>сообщения владельца, в том числе просьбы о событиях (название, дату и время в его словах);</li>
+      <li>когда владелец просит найти, создать, перенести или удалить событие, — события календаря «Ассистент»
+        за нужный период (не больше 31 дня), подходящие к просьбе, и события, пересекающиеся по времени с новым:
+        название, время (день недели, дата, часы начала и окончания; для события на весь день — дата или
+        диапазон дат с отметкой «весь день») и номер задачи помощника, если событие создано им. Ответ помощника,
+        в котором использованы эти сведения, не включается в историю разговора, которую модель получает со
+        следующими сообщениями. Если сведения о событии вошли в напоминание, задачу, заметку или письмо, созданные
+        по просьбе владельца, они хранятся в их составе и могут передаваться модели вместе с ними;</li>
+      <li>сведения из хранилища заметок владельца (Obsidian): к каждому сообщению — до 8 пунктов из заметок,
+        совпадающих с ним по словам; при поиске и чтении заметок для ответа владельцу — найденные строки (до 8
+        заметок, до 6 строк из каждой) и текст открытой заметки (до 8000 символов). Всё хранилище модели не
+        передаётся;</li>
       <li>для анализа входящего письма: имя и адрес отправителя, тему, дату, текст письма без цитаты прошлой
         переписки — не более 6000 символов (если письмо длиннее, модель видит отметку об обрезке), сведения не более
         чем о 5 предыдущих письмах той же переписки (отправитель, дата, краткая суть или до 500 символов текста)
         и цель связанной задачи. За одну проверку почты анализируется не больше 10 переписок;</li>
-      <li>по задачам с лабораториями — текст их ответов без цитаты, не более 8000 символов.</li>
+      <li>по задачам с лабораториями — текст их ответов без цитаты, не более 8000 символов;</li>
+      <li>по поручениям владельца — текст поручения и последующих указаний, извлечённый текст файлов поручения (не
+        более 8000 символов на файл и 30000 за один шаг), текст ответов адресатов без цитаты (не более 3000 символов)
+        и сведения об отправленных письмах: адресат, тема, имена вложений. Сами файлы модели не передаются.</li>
     </ul>
     Модели не передаются письма, отсеянные правилами как реклама, служебные оповещения Google о безопасности
-    и о проекте Google Cloud, а также сведения из Google Календаря.</li>
+    и о проекте Google Cloud, а также описание, место и участники событий Google Календаря и повестка
+    (её помощник показывает владельцу сам).</li>
+  <li><b>Адресаты писем</b> — люди и организации, которым владелец поручил написать. Они получают адресованные им
+    письма и вложения, выбранные для этих писем: файлы, которые владелец прислал помощнику, или вложения из
+    переписки по его задачам (без изменений). Адрес берётся из сообщений владельца, его переписки и контактов, а в
+    поручениях с поиском организаций — с официального сайта организации. Письма отправляются через Gmail
+    аккаунта помощника.</li>
 </ul>
-<p>Помощник не продаёт данные, не использует их для рекламы и не передаёт их никому, кроме перечисленных выше.</p>
+<p>Помощник не продаёт данные, не использует их для рекламы и не передаёт их никому, кроме перечисленных выше
+сервисов и адресатов писем, которым владелец поручил написать.</p>
 
 <h2>5. Ограниченное использование (Limited Use)</h2>
 <p>Использование и передача помощником информации, полученной через API Google, соответствуют
@@ -97,9 +149,14 @@
     Доступ к почте и календарю выдан одним разрешением, поэтому после отзыва помощник не может ни читать и
     отправлять письма, ни работать с календарём.</li>
   <li>Только календарь владелец может отключить в настройках помощника — почта при этом продолжит работать.</li>
-  <li>События удаляются командой помощника (с подтверждением) или вручную в Google Календаре. Календарь «Ассистент»
+  <li>Созданные помощником события удаляются по прямой просьбе владельца — сообщением или кнопкой; любые события
+    можно удалить вручную в Google Календаре. Календарь «Ассистент»
     целиком можно удалить в настройках Google Календаря аккаунта помощника. Ни отзыв доступа, ни отключение
     календаря события сами не удаляют.</li>
+  <li>Заметку можно удалить по просьбе владельца или вручную в Obsidian. После удаления её нет в текущей версии
+    хранилища на сервере и, после синхронизации, на компьютере владельца, но прежние версии остаются в git-истории
+    в обоих местах — из неё помощник может восстановить заметку. Помощник историю не очищает: её можно очистить
+    только вручную, на сервере и на компьютере.</li>
   <li>Сведения о событиях в базе помощника и в её резервных копиях автоматически не удаляются: они хранятся
     по правилам раздела 3.</li>
   <li>Если вы переписывались с помощником и хотите удалить свои письма, напишите на адрес ниже. Владелец удалит их
@@ -113,8 +170,8 @@
 <hr>
 
 <h1 id="en">Privacy Policy</h1>
-<p class="muted">Assistant Telegram · effective October 18, 2026, revision 3 (incoming email analysis, email
-digests, full email text on request)</p>
+<p class="muted">Assistant Telegram · effective October 22, 2026, revision 5 (owner's files and email attachments,
+calendar events and notes in conversations with the language model, technical logs)</p>
 
 <h2>1. Who and why</h2>
 <p>Assistant Telegram is a personal assistant used by a single person (the owner) and runs as a Telegram bot. The
@@ -131,7 +188,10 @@ address.</p>
     when. Obvious advertising and Google's service alerts about security and the Google Cloud project are handled by
     rules on the assistant's own server; other emails are analyzed with a language model (section 4). Urgent matters
     are reported right away, other meaningful emails go into a digest twice a day, advertising is skipped;</li>
-  <li>sends emails on the owner's instructions;</li>
+  <li>sends emails on the owner's instructions, including attachments — files the owner gave the assistant or
+    attachments from correspondence about the owner's tasks (files are sent unchanged);</li>
+  <li>stores attachments of incoming emails received in conversations about the owner's tasks and extracts their text
+    on its own server;</li>
   <li>reads message headers in the Sent folder to confirm that an email was sent.</li>
 </ul>
 <p><b>Google Calendar</b> (scope <code>https://www.googleapis.com/auth/calendar.app.created</code>). The assistant
@@ -139,7 +199,10 @@ creates a separate calendar named "Ассистент" (Assistant) in its own ac
 <ul>
   <li>creates events at the owner's request, made by a command, a message or a button in Telegram;</li>
   <li>shows the owner the events in this calendar (title and time);</li>
-  <li>moves or deletes only events it has created, and only after the owner confirms with a button.</li>
+  <li>at the owner's request, finds events in this calendar and checks for time conflicts;</li>
+  <li>moves or deletes only events it has created itself, and only at the owner's direct request, made by a message
+    or a button. The new time of a moved event must be stated by the owner. If it is unclear which event is meant,
+    or the date or time is unclear, the assistant changes nothing and asks a clarifying question.</li>
 </ul>
 <p>The assistant has no access to other calendars. It does not add attendees to events and does not send
 invitations. The owner may share the "Ассистент" calendar with their personal Google Account in Google Calendar
@@ -156,10 +219,34 @@ needed, this policy will be updated beforehand.</p>
     assistant's database stores the ID, title and time of each event it creates.</li>
   <li>The owner's messages to the assistant and the assistant's replies in Telegram, including those with information
     about emails and events, are stored in the same database for as long as the owner uses the assistant.</li>
+  <li>Files the owner sends to the assistant in Telegram (PDF, DOCX, XLSX, images) and attachments of incoming emails
+    about the owner's tasks are stored unchanged on the same server, together with their extracted text, for as long as
+    the owner uses the assistant. Text is extracted on the server without third-party services (including recognition
+    of scans and photos).</li>
+  <li>The owner's voice messages are transcribed on the same server by the Whisper speech recognition software
+    running on the server itself; audio is not sent to any third-party service, including OpenAI. The audio file is
+    downloaded from Telegram to a temporary folder and deleted right after transcription. The transcript is stored as
+    a regular message from the owner — in the assistant's database and its backups under the rules of this
+    section — and is processed like a text message, including by the language model (section 4). The voice message
+    itself remains in the Telegram chat.</li>
+  <li>Notes and facts the owner asks the assistant to remember are stored as files in the owner's Obsidian vault: on
+    the same server, a working copy and a private git repository with the history of all changes; on the owner's
+    personal computer, a full copy with the same history. The copies are synchronized directly over SSH, without
+    third-party services, about every 5 minutes while the computer is on; when it is off, changes wait on the
+    server. Daily database backups do not include notes. Notes are not deleted automatically.</li>
   <li>Database backups on the server: daily backups are deleted automatically after 7 days; one-off backups made before
     software updates are kept until the owner deletes them manually.</li>
   <li>Database copies downloaded to the owner's personal computer: the latest 30 are kept, older ones are deleted
     automatically.</li>
+  <li>Technical logs of the assistant are kept on the same server: operation name, technical identifier, result,
+    duration and error type — without the text of emails, notes or messages and without calendar event details.
+    In some internal failures a file name or a technical error text may be logged. Logs are kept in the server's
+    system journal — with no fixed period; old entries are removed when it reaches its size limit — in its copy,
+    kept for about five weeks, and in the assistant's log file (the latest 8 MB of entries). Entries made on
+    October 21 and 22, 2026 may contain the beginning of tool responses — up to 200
+    characters of email or note text or event details; they are kept for the same periods unless the owner
+    deletes them earlier. A few such entries are also in a one-off full server copy of October 21, 2026, which is
+    kept until the owner deletes it.</li>
   <li>The Google access token is stored on the server in a file accessible to the assistant's service account and the
     server administrator. Server login requires the owner's SSH key. Connections to Google use TLS.</li>
 </ul>
@@ -175,17 +262,37 @@ needed, this policy will be updated beforehand.</p>
     privacy policy that apply to that account. The model receives:
     <ul>
       <li>the owner's messages, including requests about events (title, date and time in the owner's words);</li>
+      <li>when the owner asks to find, create, move or delete an event: events of the "Ассистент" calendar for the
+        relevant period (no more than 31 days) that match the request, and events that overlap in time with a new
+        one — title, time (weekday, date, start and end time; for an all-day event, the date or date range marked
+        "all day") and the assistant's task number if the assistant created the event. A reply of the assistant
+        that uses this information is not included in the conversation history the model receives with later
+        messages. If event details become part of a reminder, task, note or email created at the owner's request,
+        they are stored as part of it and may be sent to the model together with it;</li>
+      <li>information from the owner's notes vault (Obsidian): with each message, up to 8 items from notes that
+        match it by words; when searching and reading notes to answer the owner, the matching lines (up to 8 notes,
+        up to 6 lines from each) and the text of an opened note (up to 8,000 characters). The whole vault is not
+        sent to the model;</li>
       <li>to analyze an incoming email: the sender's name and address, subject, date, the email text without quoted
         earlier correspondence — up to 6,000 characters (if longer, the model sees a truncation mark), information about
         up to 5 earlier emails in the same conversation (sender, date, short gist or up to 500 characters of text) and
         the goal of the related task. At most 10 conversations are analyzed per mail check;</li>
-      <li>for laboratory tasks, the text of the laboratories' replies without quotes, up to 8,000 characters.</li>
+      <li>for laboratory tasks, the text of the laboratories' replies without quotes, up to 8,000 characters;</li>
+      <li>for the owner's tasks: the task text and later instructions, extracted text of the task's files (up to 8,000
+        characters per file and 30,000 per step), recipients' replies without quotes (up to 3,000 characters) and
+        details of sent emails: recipient, subject, attachment names. The files themselves are not sent to the model.</li>
     </ul>
     Emails filtered out by rules as advertising, Google's service alerts about security and the Google Cloud project,
-    and information from Google Calendar are not sent to the model.</li>
+    event descriptions, locations and attendees from Google Calendar, and the agenda (the assistant shows it to the
+    owner itself) are not sent to the model.</li>
+  <li><b>Email recipients</b>: people and organizations the owner has instructed the assistant to write to. They
+    receive the emails addressed to them and the attachments chosen for those emails — files the owner gave the
+    assistant or attachments from correspondence about the owner's tasks (unchanged). The address comes from the
+    owner's messages, correspondence and contacts, and in tasks that involve finding organizations, from the
+    organization's official website. Emails are sent through the assistant's Gmail account.</li>
 </ul>
 <p>The assistant does not sell data, does not use it for advertising and does not share it with anyone other than
-those listed above.</p>
+the services listed above and the email recipients the owner has instructed it to write to.</p>
 
 <h2>5. Limited Use</h2>
 <p>Assistant Telegram's use and transfer of information received from Google APIs will adhere to the
@@ -199,9 +306,14 @@ including the Limited Use requirements.</p>
     Email and calendar access are granted by a single authorization, so after revoking it the assistant can neither
     read or send email nor work with the calendar.</li>
   <li>The owner can turn off the calendar alone in the assistant's settings; email keeps working.</li>
-  <li>Events are deleted with an assistant command (after confirmation) or manually in Google Calendar. The whole
+  <li>Events created by the assistant are deleted at the owner's direct request, made by a message or a button; any
+    event can be deleted manually in Google Calendar. The whole
     "Ассистент" calendar can be deleted in the Google Calendar settings of the assistant's account. Neither revoking
     access nor turning off the calendar deletes events by itself.</li>
+  <li>A note can be deleted at the owner's request or manually in Obsidian. After deletion it is no longer in the
+    current version of the vault on the server and, after synchronization, on the owner's computer, but earlier
+    versions remain in the git history in both places, and the assistant can restore the note from it. The assistant
+    does not clear the history; it can only be cleared manually, on the server and on the computer.</li>
   <li>Information about events in the assistant's database and its backups is not deleted automatically; it is kept
     under the rules in section 3.</li>
   <li>If you have corresponded with the assistant and want your emails deleted, write to the address below. The owner
